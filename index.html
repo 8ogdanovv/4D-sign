@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Victor+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+  <link href="https://fonts.cdnfonts.com/css/seven-segment" rel="stylesheet">
+  <title>4D-sign</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      width: 100%;
+      height: 100dvh;
+      font-family: "Victor Mono", monospace;
+      font-optical-sizing: auto;
+      font-style: normal;
+      margin: 0;
+      padding: 0;
+    }
+
+    .logo {
+      width: 50vmin;
+      height: 50vmin;
+      /* border: 1px solid red; */
+      position: relative;
+      top: 2vmin;
+    }
+
+    #canvas {
+      width: 50vmin;
+      height: 50vmin;
+      box-sizing: border-box;
+    }
+
+    @keyframes span-for {
+      from {
+        transform: scale(20) translate(-150%, 100%);
+        visibility: visible;
+      }
+      to {
+        transform: scale(1);
+        visibility: visible;
+      }
+    }
+
+    @keyframes span-d {
+      from {
+        transform: scale(20) translate(-100%, 100%);
+        visibility: visible;
+      }
+      to {
+        transform: scale(1);
+        visibility: visible;
+      }
+    }
+
+    @keyframes span-dash {
+      from {
+        transform: scale(20) translate(0%, 100%);
+        visibility: visible;
+      }
+      to {
+        transform: scale(1);
+        visibility: visible;
+      }
+    }
+
+    @keyframes span-sign {
+      from {
+        transform: scale(20) translate(300%, 100%);
+        visibility: visible;
+      }
+      to {
+        transform: scale(1);
+        visibility: visible;
+      }
+    }
+
+    /* Animation for the shining gradient effect */
+    @keyframes shine {
+        0% {
+            background-position: 200% 0;
+        }
+        100% {
+            background-position: -200% 0;
+        }
+    }
+
+    /* Animation for the appearance effect */
+    @keyframes appearance {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    span {
+      font-size: 10vmin;
+      display: grid;
+      width: 50vmin;
+      grid-template-columns: repeat(4, 1fr);
+      position: relative;
+      top: -2.5vmin;
+      left: -0.1ch;
+    }
+
+    span > * {
+      display: block;
+      visibility: hidden;
+      transform: scale(1);
+      /* border: 1px solid green; */
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .for {
+      animation: span-for 2s linear 1s 1 normal forwards running;
+    }
+
+    .D {
+      animation: span-d 2s linear 1.9s 1 normal forwards running;
+    }
+
+    .dash {
+      animation: span-dash 2s linear 3.16s 1 normal forwards running;
+      /* width: 100%; */
+    }
+
+    .sign {
+      letter-spacing: -.2ch;
+      position: relative;
+      left: -0.25ch;
+      animation: span-sign 2s linear 4.42s 1 normal forwards running;
+    }
+
+    .moto {
+      text-align: center;
+      position: relative;
+      /* opacity: 0; */
+      background: linear-gradient(90deg, #ff6b6b, #f06595, #845ef7, #22d3ee, #48e4c2, #ff6b6b);
+      background-size: 200%;
+      background-clip: text;
+      color: transparent;
+      -webkit-background-clip: text;
+      animation: appearance 2s linear 6.72s 1 normal forwards running, shine 6s linear infinite;
+      font-size: 5vmin;
+    }
+
+    .moto1 {
+      top: 5vmin;
+    }
+    .moto2 {
+      top: -7vmin;
+    }
+  </style>
+</head>
+<body>
+  <p class="moto moto1">
+    Designing for Life
+  </p>
+  <div class="logo">
+    <canvas id="canvas" width="400" height="400"></canvas>
+  </div>
+  <span>
+    <b class="for">4</b>
+    <b class="D">D</b>
+    <b class="dash">-</b>
+    <b class="sign">sign</b>
+  </span>
+  <p class="moto moto2">
+    Living for Design
+  </p>
+
+  <script>
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+    ctx.lineWidth = 28;
+
+    function drawOne(t) {
+      ctx.beginPath();
+      ctx.moveTo(200, 400);
+      ctx.lineTo(200, 400 - t);
+      ctx.stroke();
+    }
+
+    function drawTwo(t) {
+      ctx.beginPath();
+      ctx.moveTo(200, 0);
+      ctx.lineTo(200 - t, t);
+      ctx.stroke();
+    }
+
+    function drawThree(t) {
+      ctx.beginPath();
+      ctx.moveTo(0, 200);
+      ctx.lineTo(t, 200);
+      ctx.stroke();
+    }
+
+    function drawFour(t) {
+      ctx.beginPath();
+      ctx.ellipse(200, 105, 93, 93, Math.PI / 2, 0, -Math.PI / 180 * t, true);
+      ctx.stroke();
+    }
+
+    function drawFive(t) {
+      ctx.beginPath();
+      ctx.ellipse(200, 200, 186, 186, -Math.PI / 2, 0, -Math.PI / 180 * t, true);
+      ctx.stroke();6
+    }
+
+    function one() {
+      for (let i = 0; i <= 400; i++) {
+        setTimeout(() => drawOne(i), i * 3);
+      }
+    }
+
+    function two() {
+      for (let i = 0; i <= 200; i++) {
+        setTimeout(() => drawTwo(i), i * 5);
+      }
+    }
+
+    function three() {
+      for (let i = 0; i <= 200; i++) {
+        setTimeout(() => drawThree(i), i * 4);
+      }
+    }
+
+    function four() {
+      for (let i = 0; i <= 180; i++) {
+        setTimeout(() => drawFour(i), i * 5);
+      }
+    }
+
+    function five() {
+      for (let i = 0; i <= 360; i++) {
+        setTimeout(() => drawFive(i), i * 7);
+      }
+    }
+
+    one()
+    setTimeout(() => two(), 1200);
+    setTimeout(() => three(), 2200);
+    setTimeout(() => four(), 3000);
+    setTimeout(() => five(), 3900);
+
+    // Add the event listeners when the document is fully loaded
+    function setListeners() {
+        document.body.addEventListener('click', handleBodyClick);
+        window.addEventListener('resize', handleWindowResize);
+    }
+
+    // Optional: remove the event listener (if needed)
+    function removeListeners() {
+        document.body.removeEventListener('click', handleBodyClick);
+        window.removeEventListener('resize', handleWindowResize);
+    }
+
+
+    function reloadAndRemoveListeners() {
+      removeListeners();
+      location.reload();
+    }
+
+    // Define the event listener function for click event
+    function handleBodyClick() {
+        console.log('Body clicked, reloading page...'); // Debugging log
+        reloadAndRemoveListeners();
+    }
+
+    // Define the event listener function for resize event
+    function handleWindowResize() {
+        console.log('Window resized, reloading page...'); // Debugging log
+        reloadAndRemoveListeners();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        console.log('DOM fully loaded and parsed'); // Debugging log
+        setListeners();
+    });
+  </script>
+</body>
+</html>
