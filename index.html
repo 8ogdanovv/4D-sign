@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Victor+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
   <link href="https://fonts.cdnfonts.com/css/seven-segment" rel="stylesheet">
   <link rel="shortcut icon" href="icon.png" type="image/png">
-  <title>4D-sign | Designing for Life | Living for Design</title>
+  <title>ABCD-sign | Designing for Life | Living for Design</title>
   <style>
     * {
       box-sizing: border-box;
@@ -37,13 +37,21 @@
       top: 2vmin;
     }
 
-    #canvas {
+    #canvas, #svg {
       width: 50vmin;
       height: 50vmin;
       box-sizing: border-box;
     }
 
-    @keyframes span-for {
+    #svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      stroke-width: 28px;
+      z-index: -1;
+    }
+
+    @keyframes span-a {
       from {
         transform: scale(20) translate(-150%, 100%);
         visibility: visible;
@@ -54,9 +62,31 @@
       }
     }
 
-    @keyframes span-d {
+    @keyframes span-b {
+      from {
+        transform: scale(20) translate(-125%, 100%);
+        visibility: visible;
+      }
+      to {
+        transform: scale(1);
+        visibility: visible;
+      }
+    }
+
+    @keyframes span-c {
       from {
         transform: scale(20) translate(-100%, 100%);
+        visibility: visible;
+      }
+      to {
+        transform: scale(1);
+        visibility: visible;
+      }
+    }
+
+    @keyframes span-d {
+      from {
+        transform: scale(20) translate(-75%, 100%);
         visibility: visible;
       }
       to {
@@ -107,32 +137,45 @@
         }
     }
 
-    span {
+    .brand-name {
       font-size: 10vmin;
       display: grid;
-      width: 50vmin;
-      grid-template-columns: repeat(4, 1fr);
-      position: relative;
-      top: -2.5vmin;
+      width: 100vw;
+      grid-template-columns: 1fr 50vmin 1fr;
+      justify-content: center;
+      align-content: center;
+      position: absolute;
+      top: 50dvh;
+      transform: translateY(-50%);
       left: -0.1ch;
     }
 
-    span > * {
-      display: block;
+    .brand-name > * {
+      display: inline-flex;
       visibility: hidden;
       transform: scale(1);
       /* border: 1px solid green; */
-      display: inline-flex;
       align-items: center;
-      justify-content: center;
     }
 
-    .for {
-      animation: span-for 2s linear 1s 1 normal forwards running;
+    .abcd {
+      justify-content: flex-end;
+    }
+
+    .A {
+      animation: span-a 2s linear 1s 1 normal forwards running;
+    }
+
+    .B {
+      animation: span-b 2s linear 1.45s 1 normal forwards running;
+    }
+
+    .C {
+      animation: span-c 2s linear 1.9s 1 normal forwards running;
     }
 
     .D {
-      animation: span-d 2s linear 1.9s 1 normal forwards running;
+      animation: span-d 2s linear 2.35s 1 normal forwards running;
     }
 
     .dash {
@@ -142,7 +185,6 @@
     .sign {
       letter-spacing: -.2ch;
       position: relative;
-      left: -0.25ch;
       animation: span-sign 2s linear 4.42s 1 normal forwards running;
     }
 
@@ -169,19 +211,33 @@
 </head>
 <body>
   <p class="moto moto1">
-    Designing for Life
+    ABCD
   </p>
   <div class="logo">
     <canvas id="canvas" width="400" height="400"></canvas>
+    <svg id="svg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+      <line x1="200" y1="400" x2="200" y2="0" stroke="#888888"/>
+      <line x1="200" y1="0" x2="0" y2="200" stroke="#888888"/>
+      <line x1="0" y1="200" x2="200" y2="200" stroke="#888888"/>
+      // x,y start position
+      // rx,ry radius x and y
+      // x1,y1 end position
+      <path d="M 200,14 A 93, 93, 0 1 1 200, 200" fill="none" stroke="#888888"/>
+      <circle cx="200" cy="200" r="186" fill="none" stroke="#888888" />
+    </svg>
   </div>
-  <span>
-    <b class="for">4</b>
-    <b class="D">D</b>
-    <b class="dash">-</b>
-    <b class="sign">sign</b>
+  <span class="brand-name">
+    <span class="abcd">
+      <b class="A">A</b>
+      <b class="B">B</b>
+      <b class="C">C</b>
+      <b class="D">D</b>
+    </span>
+    <b class="dash">&nbsp;</b>
+    <span class="sign">sign</span>
   </span>
   <p class="moto moto2">
-    Living for Design
+    sign
   </p>
 
   <script>
